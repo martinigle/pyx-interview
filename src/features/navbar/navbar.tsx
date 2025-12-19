@@ -13,9 +13,9 @@ export default function Navbar() {
   const navigate = useNavigate();
   const logout = useAuthStore((state) => state.logout);
 
-  const userInitials = useAuthStore((state) => {
+  const name = useAuthStore((state) => {
     const name = state.user!.nombre;
-    return name.split("")[0];
+    return name;
   });
 
   const toDashboard = () => {
@@ -66,8 +66,9 @@ export default function Navbar() {
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Avatar sx={{ width: 32, height: 32, bgcolor: "secondary.main" }}>
-            {userInitials}
+            {name.split("")[0]}
           </Avatar>
+          <Typography>{name}</Typography>
           <Button
             variant="outlined"
             color="inherit"

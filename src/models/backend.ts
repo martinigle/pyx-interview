@@ -9,8 +9,8 @@ export interface IIncident {
   id: string;
   titulo: string;
   descripcion: string;
-  servicio: EService;
-  canal: EChannel;
+  servicio: TService;
+  canal: TChannel;
   estadoActual: TServiceState;
   instalador: string;
   cliente: string;
@@ -20,32 +20,32 @@ export interface IIncident {
 }
 
 export interface IIncidentForm {
-  title: string;
-  description: string;
-  service: string;
-  channel: string;
-  installer: string;
-  client: string;
+  titulo: string;
+  descripcion: string;
+  servicio: string;
+  canal: string;
+  instalador: string;
+  cliente: string;
 }
 
-const EService = {
+export const EService = {
   INTERNET: "INTERNET",
   PHONE: "TELEFONIA",
   MPLS: "MPLS",
   OTRO: "OTRO",
-};
+} as const;
 
-export type EService = (typeof EService)[keyof typeof EService];
+export type TService = (typeof EService)[keyof typeof EService];
 
-const EChannel = {
+export const EChannel = {
   WEB: "WEB",
   CALLCENTER: "CALL_CENTER",
   WPP: "WHATSAPP",
   EMAIL: "EMAIL",
   COMMERCIAL: "COMERCIAL",
-};
+} as const;
 
-export type EChannel = (typeof EChannel)[keyof typeof EChannel];
+export type TChannel = (typeof EChannel)[keyof typeof EChannel];
 
 export const EServiceStates = {
   NEW: "NUEVO",

@@ -1,5 +1,2 @@
 npx lint-staged
-npm test
 
-
-exit 1

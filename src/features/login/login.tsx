@@ -38,10 +38,13 @@ export default function Login() {
       alignItems="center"
       height="100vh"
       width="100%"
+      sx={{
+        backgroundColor: "#9db3f2ff",
+      }}
     >
       <Paper sx={{ p: 4, width: 360 }}>
         <Typography variant="h5" mb={2} textAlign="center">
-          Login
+          IMA LOGIN
         </Typography>
 
         <form onSubmit={handleSubmit}>
@@ -52,6 +55,11 @@ export default function Login() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "white",
+              },
+            }}
           />
 
           <TextField
@@ -62,6 +70,11 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "white",
+              },
+            }}
           />
 
           {loginMutation.isError && (

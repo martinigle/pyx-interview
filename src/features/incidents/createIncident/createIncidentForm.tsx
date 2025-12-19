@@ -2,32 +2,42 @@ import {
   Box,
   Button,
   DialogActions,
-  Grid,
   MenuItem,
   TextField,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import type { IIncidentForm } from "../../../models/backend";
+import {
+  EChannel,
+  EService,
+  type IIncidentForm,
+} from "../../../models/backend";
+import { useAuthStore } from "../../../store/authStore";
 
-const CHANNEL_OPTIONS = ["EMAIL", "TELEFONO", "WEB", "WHATSAPP"];
+interface IncidentFormDTO extends IIncidentForm {
+  creadoPor: string;
+}
 
 export default function CreateIncidentForm({
   onSubmit,
   onCancel,
   isSubmitting,
 }: {
-  onSubmit: (data: IIncidentForm) => void;
+  onSubmit: (data: IncidentFormDTO) => void;
   onCancel: () => void;
   isSubmitting?: boolean;
 }) {
   const [form, setForm] = useState({
-    title: "",
-    description: "",
-    service: "",
-    channel: "",
-    installer: "",
-    client: "",
+    titulo: "",
+    descripcion: "",
+    servicio: "",
+    canal: "",
+    instalador: "",
+    cliente: "",
+  });
+
+  const createdBy = useAuthStore((s) => {
+    return s.user?.email;
   });
 
   const handleChange =
@@ -41,7 +51,8 @@ export default function CreateIncidentForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(form);
+    const dto = { ...form, creadoPor: createdBy! };
+    onSubmit(dto);
   };
 
   return (
@@ -55,8 +66,8 @@ export default function CreateIncidentForm({
         fullWidth
         required
         sx={{ mb: 3 }}
-        value={form.title}
-        onChange={handleChange("title")}
+        value={form.titulo}
+        onChange={handleChange("titulo")}
       />
 
       <TextField
@@ -65,26 +76,39 @@ export default function CreateIncidentForm({
         multiline
         minRows={5}
         sx={{ mb: 4 }}
-        value={form.description}
-        onChange={handleChange("description")}
+        value={form.descripcion}
+        onChange={handleChange("descripcion")}
       />
 
-      <Grid spacing={3}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 2,
+        }}
+      >
         <TextField
+          select
           label="Servicio"
           fullWidth
-          value={form.service}
-          onChange={handleChange("service")}
-        />
+          value={form.servicio}
+          onChange={(e) => setForm({ ...form, servicio: e.target.value })}
+        >
+          {Object.keys(EService).map((service) => (
+            <MenuItem key={service} value={service}>
+              {service}
+            </MenuItem>
+          ))}
+        </TextField>
 
         <TextField
           select
           label="Canal"
           fullWidth
-          value={form.channel}
-          onChange={handleChange("channel")}
+          value={form.canal}
+          onChange={(e) => setForm({ ...form, canal: e.target.value })}
         >
-          {CHANNEL_OPTIONS.map((channel) => (
+          {Object.keys(EChannel).map((channel) => (
             <MenuItem key={channel} value={channel}>
               {channel}
             </MenuItem>
@@ -94,17 +118,17 @@ export default function CreateIncidentForm({
         <TextField
           label="Instalador"
           fullWidth
-          value={form.installer}
-          onChange={handleChange("installer")}
+          value={form.instalador}
+          onChange={(e) => setForm({ ...form, instalador: e.target.value })}
         />
 
         <TextField
           label="Cliente"
           fullWidth
-          value={form.client}
-          onChange={handleChange("client")}
+          value={form.cliente}
+          onChange={(e) => setForm({ ...form, cliente: e.target.value })}
         />
-      </Grid>
+      </Box>
 
       <DialogActions sx={{ mt: 4 }}>
         <Button type="submit" variant="contained" disabled={isSubmitting}>
