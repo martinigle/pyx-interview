@@ -1,15 +1,15 @@
 import { useMemo } from "react";
 import { useIncidents } from "../useIncidents";
 import { Pie } from "react-chartjs-2";
-import type { EChannel } from "../../../models/backend";
 import type { ChartData } from "chart.js";
 import Loading from "../../../shared/loading";
+import type { TChannel } from "../../../models/backend";
 
 export default function IncidentPieChart() {
   const { data, isLoading, error } = useIncidents();
 
   const chartData: ChartData<"pie", number[], string> = useMemo(() => {
-    const counts: Record<EChannel, number> = {
+    const counts: Record<TChannel, number> = {
       WEB: 0,
       CALL_CENTER: 0,
       WHATSAPP: 0,

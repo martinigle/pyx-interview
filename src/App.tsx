@@ -2,7 +2,7 @@ import { Suspense, lazy } from "react";
 import { useAuthStore } from "./store/authStore";
 
 import "./App.css";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { HashRouter, Navigate, Route, Routes } from "react-router";
 import type { AuthStore } from "./store/authStore";
 import Login from "./features/login/login";
 import Navbar from "./features/navbar/navbar";
@@ -17,7 +17,7 @@ function App() {
   );
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div>
         {user && <Navbar />}
         <main>
@@ -65,7 +65,7 @@ function App() {
           </Suspense>
         </main>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 

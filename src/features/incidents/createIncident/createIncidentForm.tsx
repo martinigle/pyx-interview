@@ -40,6 +40,15 @@ export default function CreateIncidentForm({
     return s.user?.email;
   });
 
+  const isFormValid =
+    form.titulo.trim() !== "" &&
+    form.descripcion.trim() !== "" &&
+    form.servicio !== "" &&
+    form.canal !== "" &&
+    form.instalador.trim() !== "" &&
+    form.cliente.trim() !== "" &&
+    createdBy !== "";
+
   const handleChange =
     (field: keyof typeof form) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +60,7 @@ export default function CreateIncidentForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isFormValid || !createdBy) return;
     const dto = { ...form, creadoPor: createdBy! };
     onSubmit(dto);
   };
@@ -92,6 +102,7 @@ export default function CreateIncidentForm({
           label="Servicio"
           fullWidth
           value={form.servicio}
+          required
           onChange={(e) => setForm({ ...form, servicio: e.target.value })}
         >
           {Object.keys(EService).map((service) => (
@@ -106,6 +117,7 @@ export default function CreateIncidentForm({
           label="Canal"
           fullWidth
           value={form.canal}
+          required
           onChange={(e) => setForm({ ...form, canal: e.target.value })}
         >
           {Object.keys(EChannel).map((channel) => (
@@ -119,6 +131,7 @@ export default function CreateIncidentForm({
           label="Instalador"
           fullWidth
           value={form.instalador}
+          required
           onChange={(e) => setForm({ ...form, instalador: e.target.value })}
         />
 
@@ -126,12 +139,17 @@ export default function CreateIncidentForm({
           label="Cliente"
           fullWidth
           value={form.cliente}
+          required
           onChange={(e) => setForm({ ...form, cliente: e.target.value })}
         />
       </Box>
 
       <DialogActions sx={{ mt: 4 }}>
-        <Button type="submit" variant="contained" disabled={isSubmitting}>
+        <Button
+          type="submit"
+          variant="contained"
+          disabled={!isFormValid || isSubmitting}
+        >
           Guardar
         </Button>
         <Button variant="outlined" onClick={onCancel} disabled={isSubmitting}>
