@@ -9,7 +9,7 @@ export default function Dashboard() {
     <Container sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3} sx={{ mb: 3 }}>
         <Paper elevation={3} sx={{ p: 2, alignSelf: "start", width: "45%" }}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Incidentes por canal
           </Typography>
           <Box sx={{ height: 300, display: "flex", justifyContent: "center" }}>
@@ -34,11 +34,9 @@ export default function Dashboard() {
         sx={{
           p: 2,
           height: "auto",
-          bgcolor: "#f5f5f5",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          color: "#666",
         }}
       >
         <IncidentList />

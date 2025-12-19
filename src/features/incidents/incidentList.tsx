@@ -20,6 +20,7 @@ import { EServiceStates } from "../../models/backend";
 import { useNavigate } from "react-router";
 import Loading from "../../shared/loading";
 import IncidentButton from "../../shared/newIncidentButton";
+import { StatusChip } from "../../shared/statusChip";
 
 export default function IncidentList() {
   const { data: incidents, isLoading, error } = useIncidents();
@@ -130,7 +131,7 @@ export default function IncidentList() {
                   <TableCell>{incident.servicio}</TableCell>
                   <TableCell>{incident.canal}</TableCell>
                   <TableCell>
-                    {incident.estadoActual.replace("_", " ")}
+                    <StatusChip status={incident.estadoActual} />
                   </TableCell>
                   <TableCell>{incident.fechaCreacion}</TableCell>
                 </TableRow>
