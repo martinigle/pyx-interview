@@ -52,14 +52,14 @@ El proyecto sigue una **arquitectura basada en features**, organizada dentro del
 
 ## Autenticación con login
 
-> El sistema de autenticación funciona mediante **username y password** enviados al endpoint de login del backend. El flujo completo es el siguiente:
+El sistema de autenticación funciona mediante **username y password** enviados al endpoint de login del backend. El flujo completo es el siguiente:
 
-1. El usuario ingresa sus credenciales en el formulario de login.
-2. Se realiza una solicitud al endpoint `/login` del backend.
-3. El backend responde con un **token Bearer** si las credenciales son correctas.
-4. Este token se almacena en la store de Zustand.
-5. Se utiliza un **interceptor de Axios** para adjuntar automáticamente el token a cada solicitud al backend, haciendo que todas las llamadas sean autenticadas.
-6. Las rutas protegidas en la aplicación solo son accesibles si el usuario está autenticado.
+- El usuario ingresa sus credenciales en el formulario de login.
+- Se realiza una solicitud al endpoint `/login` del backend.
+- El backend responde con un **token Bearer** si las credenciales son correctas.
+- Este token se almacena en la store de Zustand.
+- Se utiliza un **interceptor de Axios** para adjuntar automáticamente el token a cada solicitud al backend, haciendo que todas las llamadas sean autenticadas.
+- Las rutas protegidas en la aplicación solo son accesibles si el usuario está autenticado.
 
 ## Deployment!
 
@@ -86,6 +86,7 @@ El formato general de los commits es:
 - **scope** (opcional): área del proyecto afectada, por ejemplo `login`, `dashboard`, `incidents`.
 - **mensaje**: descripción corta y clara del cambio.
 
-> Ejemplos de commits válido:
-> **feat(login): agregar validación de email en el formulario**
-> **feat: agregar validación para incident forms**
+  Ejemplos de commits válido:
+
+- **feat(login): agregar validación de email en el formulario**
+- **feat: agregar validación para incident forms**
