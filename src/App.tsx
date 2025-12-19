@@ -8,6 +8,7 @@ import Login from "./features/login/login";
 import Navbar from "./features/navbar/navbar";
 import Loading from "./shared/loading";
 import CreateIncidentModal from "./features/incidents/createIncident/createIncidentModal";
+import { ProtectedRoute } from "./protectedRoute";
 
 function App() {
   const user = useAuthStore((state: AuthStore) => state.user);
@@ -24,7 +25,9 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={user ? <Navigate to="/dashboard" /> : <Login />}
+              element={
+                user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />
+              }
             />
             <Route
               path="/login"
@@ -34,26 +37,22 @@ function App() {
             <Route
               path="/dashboard/*"
               element={
-                user ? (
+                <ProtectedRoute>
                   <Suspense fallback={<Loading message="Loading dashboard" />}>
                     <Dashboard />
                   </Suspense>
-                ) : (
-                  <Navigate to="/login" />
-                )
+                </ProtectedRoute>
               }
             />
 
             <Route
               path="/incidents/:id"
               element={
-                user ? (
+                <ProtectedRoute>
                   <Suspense fallback={<Loading />}>
                     <Incident />
                   </Suspense>
-                ) : (
-                  <Navigate to="/login" />
-                )
+                </ProtectedRoute>
               }
             />
             {/* Fallback 404 */}
